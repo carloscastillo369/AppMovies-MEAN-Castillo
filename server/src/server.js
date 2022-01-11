@@ -11,11 +11,12 @@ conectDB();
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static(config.PUBLIC));
 app.use('/api/products', productRouter);
 
 //Definimos ruta principal
-app.get('/', (req,res) => {
-    res.send('hola mundo');
+app.get('/*', (req,res) => {
+    res.sendFile(config.PUBLIC + '/index.html');
 })
 
 app.listen(config.PORT, ()=> {
