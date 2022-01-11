@@ -3,10 +3,10 @@
     <button mat-raised-button class="btn-trailer" (click)="openDialog(movie)">
         <mat-icon>smart_display</mat-icon> Ver trailer
     </button>
-    <button mat-raised-button color="primary" *ngIf="movie.purchaseavailable" (click)="buyMovie(movie.id)">
+    <button mat-raised-button color="primary" *ngIf="movie.purchasestock != 0" (click)="buyMovie(movie._id)">
         ${{movie.purchaseprice}} Compra 
     </button>
-    <button mat-raised-button color="accent" *ngIf="movie.rentalavailable" (click)="rentMovie(movie.id)">
+    <button mat-raised-button color="accent" *ngIf="movie.rentalstock != 0" (click)="rentMovie(movie._id)">
         ${{movie.rentalprice}} Renta 48Hs
     </button>
     <button mat-raised-button routerLink="/HomeMovie/movies">

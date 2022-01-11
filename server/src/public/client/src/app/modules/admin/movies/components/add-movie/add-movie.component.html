@@ -9,67 +9,65 @@
         <button [disabled]="formAddMovie.invalid" class="btn-save" type="submit" mat-raised-button color="primary" >
             Guardar
         </button>
-        <div class="main-data">
+        <div class="main-data">   
             <mat-form-field appearance="fill">
-                <mat-label>ID</mat-label>
-                <input type="text" formControlName="id" matInput>
-            </mat-form-field>
-        
-            <mat-form-field appearance="fill">
-                <mat-label>Title</mat-label>
+                <mat-label>Título</mat-label>
                 <input type="text" formControlName="title" matInput>
             </mat-form-field>
-        </div>
-        <div class="boolean-data">
-            <mat-checkbox formControlName="purchaseavailable">Purchase available</mat-checkbox>
-        
-            <mat-checkbox formControlName="rentalavailable">Rental available</mat-checkbox>
-            
-            <mat-checkbox formControlName="commingsoon">Comming Soon</mat-checkbox>
         </div>
 
         <div class="number-data">
             <mat-form-field appearance="fill">
-                <mat-label>Purchase Price</mat-label>
+                <mat-label>Stock Compra</mat-label>
+                <input type="number" formControlName="purchasestock" matInput>
+            </mat-form-field>
+        
+            <mat-form-field appearance="fill">
+                <mat-label>Stock Alquiler</mat-label>
+                <input type="number" formControlName="rentalstock" matInput>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Precio Compra</mat-label>
                 <input type="number" formControlName="purchaseprice" matInput>
             </mat-form-field>
         
             <mat-form-field appearance="fill">
-                <mat-label>Rental Price</mat-label>
+                <mat-label>Precio Alquiler</mat-label>
                 <input type="number" formControlName="rentalprice" matInput>
             </mat-form-field>
 
             <mat-form-field appearance="fill">
-                <mat-label>Year</mat-label>
+                <mat-label>Año</mat-label>
                 <input type="number" formControlName="year" matInput>
             </mat-form-field>
 
             <mat-form-field appearance="fill">
-                <mat-label>Runtime</mat-label>
+                <mat-label>Duración</mat-label>
                 <input type="number" formControlName="runtime" matInput>
             </mat-form-field>
         </div>
 
         <div class="textarea-data">
             <mat-form-field appearance="fill">
-                <mat-label>Plot</mat-label>
+                <mat-label>Trama</mat-label>
                 <textarea formControlName="plot" matInput></textarea>
             </mat-form-field>
         </div>
 
         <div class="string-data">
             <mat-form-field appearance="fill">
-                <mat-label>Rated</mat-label>
+                <mat-label>Clasificación</mat-label>
                 <input type="text" formControlName="rated" matInput>
             </mat-form-field>
         
             <mat-form-field appearance="fill">
-                <mat-label>Released</mat-label>
+                <mat-label>Fecha Lanzamiento</mat-label>
                 <input type="text" formControlName="released" matInput>
             </mat-form-field>
         
             <mat-form-field appearance="fill">
-                <mat-label>Genre</mat-label>
+                <mat-label>Género</mat-label>
                 <input type="text" formControlName="genre" matInput>
             </mat-form-field>
         
@@ -79,42 +77,42 @@
             </mat-form-field>
         
             <mat-form-field appearance="fill">
-                <mat-label>Writer</mat-label>
+                <mat-label>Guionista</mat-label>
                 <input type="text" formControlName="writer" matInput>
             </mat-form-field>
         
             <mat-form-field appearance="fill">
-                <mat-label>Actors</mat-label>
+                <mat-label>Actores</mat-label>
                 <input type="text" formControlName="actors" matInput>
             </mat-form-field>
         
             <mat-form-field appearance="fill">
-                <mat-label>Language</mat-label>
+                <mat-label>Idioma</mat-label>
                 <input type="text" formControlName="language" matInput>
             </mat-form-field>
         
             <mat-form-field appearance="fill">
-                <mat-label>Country</mat-label>
+                <mat-label>País</mat-label>
                 <input type="text" formControlName="country" matInput>
             </mat-form-field>
         
             <mat-form-field appearance="fill">
-                <mat-label>Awards</mat-label>
+                <mat-label>Premios</mat-label>
                 <input type="text" formControlName="awards" matInput>
             </mat-form-field>
         
             <mat-form-field appearance="fill">
-                <mat-label>Card Image</mat-label>
+                <mat-label>Imagen Card</mat-label>
                 <input type="text" formControlName="cardimg" matInput>
             </mat-form-field>
         
             <mat-form-field appearance="fill">
-                <mat-label>Poster Image</mat-label>
+                <mat-label>Imagen Poster</mat-label>
                 <input type="text" formControlName="posterimg" matInput>
             </mat-form-field>
         
             <mat-form-field appearance="fill">
-                <mat-label>Banner Image</mat-label>
+                <mat-label>Imagen Banner</mat-label>
                 <input type="text" formControlName="bannerimg" matInput>
             </mat-form-field>
         

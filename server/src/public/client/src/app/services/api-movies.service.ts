@@ -1,23 +1,25 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { MovieModel } from 'src/app/core/models/movie.model';
+
+import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class MoviesService {
+export class ApiMoviesService {
 
-  private urlAPI = "https://61bd6cde2a1dd4001708a047.mockapi.io/api/movies/";
+  private URL_BASE: string = !environment.production? 'http://localhost:8080' : '';
+
+  private urlAPI = this.URL_BASE + '/api/products/';
 
   constructor(private http: HttpClient) { }
 
-  getMovies(): Observable<MovieModel[]>{
-    return this.http.get<MovieModel[]>(this.urlAPI);
-  }
-
-  getMovie(id:string): Observable<MovieModel>{
-    return this.http.get<MovieModel>(this.urlAPI + id);
+  getMovie(id?: string|undefined): Observable<MovieModel[]>{
+    return this.http.get<MovieModel[]>(this.urlAPI + (id||''));
   }
 
   saveMovie(movie: MovieModel){
@@ -31,4 +33,5 @@ export class MoviesService {
   deleteMovie(id: string){
     return this.http.delete<MovieModel>(this.urlAPI + id);
   }
+
 }

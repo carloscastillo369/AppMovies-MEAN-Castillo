@@ -10,8 +10,8 @@ import { MovieModel } from 'src/app/core/models/movie.model';
 })
 export class CartService {
 
-  cartArrayMovies: CartMovieModel[] = [];
-  cartMoviesList = new BehaviorSubject<CartMovieModel[]>([]);
+  cartArrayMovies: CartMovieModel[] = !!localStorage.cart? JSON.parse(localStorage.cart) : [];
+  cartMoviesList = new BehaviorSubject<CartMovieModel[]>(this.cartArrayMovies);
 
   constructor() { }
 
@@ -21,7 +21,7 @@ export class CartService {
 
   addMovieToCart(product: MovieModel, price:number, type: string){
     const cartItem:CartMovieModel = {
-      id: product.id, 
+      id: product._id, 
       title: product.title,
       image: product.posterimg,
       year: product.year,
@@ -30,14 +30,15 @@ export class CartService {
       price: price,
       quantity: 1
     }
-    const filter = this.cartArrayMovies.filter((i:any) => i.id == product.id);
+    const filter = this.cartArrayMovies.filter((i:any) => i.id == product._id);
       if(filter.length == 0){
         this.cartArrayMovies.push(cartItem);
       } else if(filter.length == 1){
-        this.cartArrayMovies = this.cartArrayMovies.filter((i:any) => i.id != product.id);
+        this.cartArrayMovies = this.cartArrayMovies.filter((i:any) => i.id != product._id);
         this.cartArrayMovies.push(cartItem);
       }
     this.cartMoviesList.next(this.cartArrayMovies);
+    localStorage.setItem('cart', JSON.stringify(this.cartArrayMovies));
   }
 
   getTotalPrice(){
@@ -55,22 +56,26 @@ export class CartService {
       }
     })
     this.cartMoviesList.next(this.cartArrayMovies);
+    localStorage.setItem('cart', JSON.stringify(this.cartArrayMovies));
   }
 
   removeAllCart(){
     this.cartArrayMovies = [];
     this.cartMoviesList.next(this.cartArrayMovies);
+    localStorage.setItem('cart', JSON.stringify(this.cartArrayMovies));
   }
 
   increaseQtyMovie(id:string){
     const result = this.cartArrayMovies.filter(i => i.id == id)
     result[0].quantity += 1;
     this.cartMoviesList.next(this.cartArrayMovies);
+    localStorage.setItem('cart', JSON.stringify(this.cartArrayMovies));
   }
 
   decreaseQtyMovie(id:string){
     const result = this.cartArrayMovies.filter(i => i.id == id)
     result[0].quantity -= 1;
     this.cartMoviesList.next(this.cartArrayMovies);
+    localStorage.setItem('cart', JSON.stringify(this.cartArrayMovies));
   }
 }

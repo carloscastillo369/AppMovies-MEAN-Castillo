@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MovieModel } from 'src/app/core/models/movie.model';
-import { MoviesService } from '../../services/movies.service';
+import { ApiMoviesService } from 'src/app/services/api-movies.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -12,25 +12,24 @@ import Swal from 'sweetalert2';
 })
 export class UpdateMovieComponent implements OnInit {
 
-  movie!:MovieModel
+  movie!: MovieModel;
 
   constructor(
-    private moviesService: MoviesService, 
+    private _apiMoviesService: ApiMoviesService, 
     private fb:FormBuilder,
     private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
-      this.moviesService.getMovie(params.id).subscribe((res: MovieModel) => {
-        this.movie = res;
+      this._apiMoviesService.getMovie(params.id).subscribe(res => {
+        this.movie = res[0];
 
         this.formUpdateMovie = this.fb.group({
-          id: [this.movie.id],
+          _id: [this.movie._id],
           title: [this.movie.title],
-          purchaseavailable: [this.movie.purchaseavailable],
-          rentalavailable: [this.movie.rentalavailable],
-          commingsoon: [this.movie.commingsoon],
+          purchasestock: [this.movie.purchasestock],
+          rentalstock: [this.movie.rentalstock],
           purchaseprice: [this.movie.purchaseprice],
           rentalprice: [this.movie.rentalprice],
           year: [this.movie.year],
@@ -55,15 +54,14 @@ export class UpdateMovieComponent implements OnInit {
   }
 
   formUpdateMovie: FormGroup = this.fb.group({
-    id: [''],
+    _id: [''],
     title: [''],
-    purchaseavailable: [false],
-    rentalavailable: [false],
-    commingsoon: [false],
+    purchasestock: [0],
+    rentalstock: [0],
     purchaseprice: [0],
-    rentalprice: [''],
-    year: [''],
-    runtime: [''],
+    rentalprice: [0],
+    year: [0],
+    runtime: [0],
     plot: [''],
     rated: [''],
     released: [''],
@@ -90,17 +88,16 @@ export class UpdateMovieComponent implements OnInit {
       allowOutsideClick: false
     }).then((result) => {
       if (result.isConfirmed) {
-        this.moviesService.updateMovie(this.formUpdateMovie.value, id)
+        this._apiMoviesService.updateMovie(this.formUpdateMovie.value, id)
         .subscribe((res)=>{
           Swal.fire('Guardado!', '', 'success')
         })
       } else if (result.isDenied) {
         this.formUpdateMovie = this.fb.group({
-          id: [this.movie.id],
+          _id: [this.movie._id],
           title: [this.movie.title],
-          purchaseavailable: [this.movie.purchaseavailable],
-          rentalavailable: [this.movie.rentalavailable],
-          commingsoon: [this.movie.commingsoon],
+          purchasestock: [this.movie.purchasestock],
+          rentalstock: [this.movie.rentalstock],
           purchaseprice: [this.movie.purchaseprice],
           rentalprice: [this.movie.rentalprice],
           year: [this.movie.year],

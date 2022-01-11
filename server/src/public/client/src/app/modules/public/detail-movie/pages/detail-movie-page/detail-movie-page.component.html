@@ -23,9 +23,9 @@
                     <p>{{movie.plot}}</p>
                     <p></p>
                     
-                    <hr *ngIf="!movie.purchaseavailable && !movie.rentalavailable">
+                    <hr *ngIf="movie.purchasestock == 0 && movie.rentalstock == 0">
                     
-                    <h3 *ngIf="!movie.purchaseavailable && !movie.rentalavailable" class="no-available">Agotado</h3>
+                    <h3 *ngIf="movie.purchasestock == 0 && movie.rentalstock == 0" class="no-available">Agotado</h3>
                 </div>          
             </div>
         </div>

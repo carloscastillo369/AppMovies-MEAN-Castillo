@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { MovieModel } from 'src/app/core/models/movie.model';
 
-import { ApiMovieService } from 'src/app/modules/public/detail-movie/services/api-movie.service';
+import { ApiMoviesService } from 'src/app/services/api-movies.service';
 
 
 @Component({
@@ -18,17 +18,21 @@ export class DetailMoviePageComponent implements OnInit {
   public mins: number = 0;
 
   constructor(
-    private _apiMovieService: ApiMovieService, 
+    private _apiMoviesService: ApiMoviesService, 
     private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
-      this._apiMovieService.getMovie(params.id).subscribe((res: MovieModel) => {
-        this.movie = res;
-        this.MinToHour(this.movie.runtime);
-      });
+      this.getDetailMovie(params.id);
     })
+  }
+
+  getDetailMovie(id: string){
+    this._apiMoviesService.getMovie(id).subscribe(res => {
+      this.movie = res[0];     
+      this.MinToHour(this.movie.runtime);
+    });
   }
 
   MinToHour(number: number){

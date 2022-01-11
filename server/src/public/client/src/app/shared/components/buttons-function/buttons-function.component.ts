@@ -4,7 +4,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MovieModel } from 'src/app/core/models/movie.model';
 
 import { CartService } from 'src/app/modules/public/cart/services/cart.service';
-import { ApiMovieService } from 'src/app/modules/public/detail-movie/services/api-movie.service';
+import { ApiMoviesService } from 'src/app/services/api-movies.service';
 
 import { ModalTrailerComponent } from '../modal-trailer/modal-trailer.component';
 
@@ -16,13 +16,13 @@ import { ModalTrailerComponent } from '../modal-trailer/modal-trailer.component'
 })
 export class ButtonsFunctionComponent implements OnInit {
 
-  @Input() movie!:MovieModel;
+  @Input() movie!:any;
 
   public modal:string = "modal";
 
   constructor(
     private _cartService: CartService,
-    private _apiMovieService: ApiMovieService,
+    private _apiMoviesService: ApiMoviesService,
     public dialog: MatDialog
   ) { }
 
@@ -30,14 +30,14 @@ export class ButtonsFunctionComponent implements OnInit {
   }
 
   buyMovie(id: string){
-    this._apiMovieService.getMovie(id).subscribe((res: MovieModel) => {
-        this._cartService.addMovieToCart(res, res.purchaseprice, 'compra');
+    this._apiMoviesService.getMovie(id).subscribe(res => {
+        this._cartService.addMovieToCart(res[0], res[0].purchaseprice, 'compra');
     });   
   }
 
   rentMovie(id: string){
-    this._apiMovieService.getMovie(id).subscribe((res: MovieModel) => {
-        this._cartService.addMovieToCart(res, res.rentalprice, 'renta');
+    this._apiMoviesService.getMovie(id).subscribe(res => {
+        this._cartService.addMovieToCart(res[0], res[0].rentalprice, 'renta');
     });   
   }
 

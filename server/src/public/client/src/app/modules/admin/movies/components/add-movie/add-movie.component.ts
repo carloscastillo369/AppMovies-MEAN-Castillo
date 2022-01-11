@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MoviesService } from '../../services/movies.service';
+import { ApiMoviesService } from 'src/app/services/api-movies.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 
@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 export class AddMovieComponent implements OnInit {
 
   constructor(
-    private moviesService: MoviesService, 
+    private _apiMoviesService: ApiMoviesService, 
     private fb: FormBuilder
   ) { }
 
@@ -19,11 +19,9 @@ export class AddMovieComponent implements OnInit {
   }
 
   formAddMovie: FormGroup = this.fb.group({
-    id: ['', [Validators.required]],
     title: ['', [Validators.required]],
-    purchaseavailable: [false, [Validators.required]],
-    rentalavailable: [false, [Validators.required]],
-    commingsoon: [false, [Validators.required]],
+    purchasestock: ['', [Validators.required]],
+    rentalstock: ['', [Validators.required]],
     purchaseprice: ['', [Validators.required]],
     rentalprice: ['', [Validators.required]],
     year: ['', [Validators.required]],
@@ -45,7 +43,7 @@ export class AddMovieComponent implements OnInit {
   })
 
   saveMovie(){
-    this.moviesService.saveMovie(this.formAddMovie.value)
+    this._apiMoviesService.saveMovie(this.formAddMovie.value)
     .subscribe((res) => {
       Swal.fire({
         position: 'top-end',
