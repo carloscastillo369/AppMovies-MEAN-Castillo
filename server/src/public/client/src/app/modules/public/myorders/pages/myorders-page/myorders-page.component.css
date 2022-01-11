@@ -1,0 +1,38 @@
+.myorders-container {
+    width: 100%;
+    background-color: #181818;
+    padding: 20px 5px 20px;
+}
+
+.myorders-text {
+    font-size: 30px;
+    font-style: italic;
+    color: #fff;
+}
+
+mat-expansion-panel-header {
+    min-height: 70px;
+}
+
+.order-description {
+    width: 50%;
+}
+
+.orders-empty {
+    text-align: center;
+    padding-top: 50px;
+    color: #fff;
+}
+ 
+.orders-empty-text {
+    margin-bottom: 30px;
+    font-size: 40px;
+}
+
+.spinner {
+    width: 100%;
+    height: calc(100vh - 164px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
