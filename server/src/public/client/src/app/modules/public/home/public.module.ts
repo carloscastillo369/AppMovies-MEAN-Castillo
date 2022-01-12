@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomeRoutingModule } from './home-routing.module';
+import { HomeRoutingModule } from './public-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MaterialModule } from 'src/app/shared/material/material.module';
 
-import { HomePageComponent } from './pages/home-page/home-page.component';
+import { PublicPageComponent } from './pages/public-page/public-page.component';
 
 
 @NgModule({
   declarations: [
-    HomePageComponent
+    PublicPageComponent
   ],
   imports: [
     CommonModule,
@@ -18,4 +18,4 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
     MaterialModule
   ]
 })
-export class HomeModule { }
+export class PublicModule { }

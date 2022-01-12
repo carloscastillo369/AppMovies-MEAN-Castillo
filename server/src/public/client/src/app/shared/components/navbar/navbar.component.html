@@ -1,40 +1,35 @@
 <mat-toolbar class="navbar">
-    <div fxHide.gt-xs>
-        <button mat-icon-button (click)="onToggleSidenav()">
-            <mat-icon>menu</mat-icon>
-        </button>
-    </div>
-
     <div fxFlex fxLayoutAlign="start">
-        <a class="logo-container" routerLink="/HomeMovie/movies">
+        <a class="logo-container" routerLink="/">
             <img class="logo-image" src="../../../assets/images/logo/Logo-White.png" alt="">
             <p class="logo-name">HomeMovie</p>
         </a>
     </div>
 
-    <div fxFlex fxLayoutAlign="end" fxHide.xs>
-        <button mat-button routerLink="/HomeMovie/movies">
-            Películas
-        </button>
-        <app-cart-widget></app-cart-widget>
-        <ng-container *ngIf="!user">
-            <button class="btn-signin" mat-raised-button color="primary" routerLink="/HomeMovie/signin">
-                Iniciar Sesión
+    <ng-container *ngIf="logged">
+        <div fxHide.gt-xs>
+            <button mat-icon-button (click)="onToggleSidenav()">
+                <mat-icon>menu</mat-icon>
             </button>
-            <button class="btn-signup" mat-raised-button color="warn" routerLink="/HomeMovie/signup">
-                Registrarse
-            </button>
-        </ng-container>
-        <ng-container *ngIf="user">
+        </div>
+
+        <ng-container *ngIf="!isAdmin">
+            <div fxFlex fxLayoutAlign="end" fxHide.xs>
+                <button mat-button routerLink="/movies">
+                    Películas
+                </button>
+
+                <app-cart-widget></app-cart-widget>
+
                 <button mat-mini-fab color="accent" [matMenuTriggerFor]="menu" class="btn-user"> 
                     <mat-icon>emoji_emotions</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item disabled>
-                        <mat-icon>person</mat-icon> {{user.name}}
+                        <mat-icon>person</mat-icon> NOMBRE
                     </button>
                     <mat-divider></mat-divider>
-                    <button mat-menu-item routerLink="/HomeMovie/myorders">
+                    <button mat-menu-item routerLink="/myorders">
                         <mat-icon>shopping_basket</mat-icon>
                         <span>Mis pedidos</span>
                     </button>
@@ -43,8 +38,26 @@
                         <span>Cerrar sesión</span>
                     </button>
                 </mat-menu>
-        </ng-container>
-    </div>
+            </div>
 
-    <app-cart-widget fxHide.gt-xs></app-cart-widget>
+            <app-cart-widget fxHide.gt-xs></app-cart-widget>
+        </ng-container>
+
+        <ng-container *ngIf="isAdmin">
+            <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+                <button mat-button routerLink="/users">
+                    Usuarios
+                </button>
+                <button mat-button routerLink="/orders">
+                    Pedidos
+                </button>
+                <button mat-button routerLink="/movies">
+                    Películas
+                </button>
+                <button mat-button routerLink="/">
+                    <mat-icon>lock_open</mat-icon> Cerrar Sesión
+                </button>
+            </div>
+        </ng-container>
+    </ng-container>
 </mat-toolbar>

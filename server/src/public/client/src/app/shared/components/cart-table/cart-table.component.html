@@ -8,7 +8,7 @@
     <ng-container matColumnDef="descripcion">
       <th mat-header-cell *matHeaderCellDef> Descripción </th>
       <td class="cell-product" mat-cell *matCellDef="let product">
-        <a class="link-detail" [routerLink]="['/HomeMovie/detailmovie', product.id, product.title]">
+        <a class="link-detail" [routerLink]="['/detailmovie', product.id, product.title]">
           <img class="cartitem-image" src={{product.image}} alt="">
           <div class="cartitem-details">
             <strong>{{product.title}}</strong>

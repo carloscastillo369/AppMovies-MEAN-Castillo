@@ -5,11 +5,9 @@ a {
 
 mat-toolbar {
     width: 100%;
-    height: 64px;
-    background-color: #000;
-    opacity: 0.8;
+    height: 64px; 
+    background-color: transparent;
     color: #fff;
-    position: fixed;
     z-index: 1000;
 }
 
@@ -21,13 +19,41 @@ mat-toolbar {
 .logo-image {
     width: 30px;
     height: auto;
-    margin-right: 6px;
+    margin-right: 6px; 
 }
 
 .logo-name {
     margin-bottom: 0;
 }
 
-.btn-signin, .btn-signup, .btn-user {
+.btn-signin {
+    width: 180px; /*ajustar normal*/
+    height: 50px; /*ajustar normal*/
+    font-size: 20px; /*ajustar normal*/
+    margin-left: 16px; /*ajustar normal*/
+}
+
+.btn-user {
     margin-left: 16px;
+}
+
+@media (min-width: 600px){
+    mat-toolbar {
+        width: 100%;
+        height: 100px; 
+        background-color: transparent;
+        color: #fff;
+        z-index: 1000;
+    }
+
+    .logo-image {
+        width: 45px; /*ajustar 30px*/
+        height: auto;
+        margin-right: 12px; /*ajustar 6px*/
+    }
+    
+    .logo-name {
+        font-size: 25px; /*ajustar normal*/
+        margin-bottom: 0;
+    }    
 }

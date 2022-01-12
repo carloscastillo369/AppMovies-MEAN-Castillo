@@ -15,7 +15,9 @@ export class SidenavListComponent implements OnInit {
   @Output() sidenavClose = new EventEmitter();
 
   public user!:NewUserModel;
-
+  public logged: boolean = false;
+  public isAdmin: boolean = false;
+ 
   constructor(private _authService: AuthService) { }
 
   ngOnInit(): void {

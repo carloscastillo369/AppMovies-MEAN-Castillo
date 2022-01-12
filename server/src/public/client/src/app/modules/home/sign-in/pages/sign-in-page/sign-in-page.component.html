@@ -1,6 +1,6 @@
 <div class="sign-in-container">
     <div class="sign-in-form">
-        <form [formGroup]="formSignIn" (submit)="onSaveForm()">
+        <form [formGroup]="formSignIn" (submit)="signIn()">
             <mat-form-field appearance="fill">
                 <mat-label>Email</mat-label>
                 <input 
@@ -33,7 +33,11 @@
                     {{getErrorMessage('password')}}
                 </mat-error>
             </mat-form-field>
-            <mat-checkbox color="primary">Recuérdame.</mat-checkbox>
+
+            <div>
+                <input type="checkbox">
+                <label> Recuérdame</label>
+            </div>
             <button mat-raised-button color="primary" type="submit" class="btn btn-submit" [disabled]="formSignIn.invalid">Iniciar Sesión</button>
         </form>
         <div class="signup-button-container">

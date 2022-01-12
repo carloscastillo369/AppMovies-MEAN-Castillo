@@ -6,6 +6,6 @@ button {
     color: #fff;
 }
 
-.nav-caption-text {
-    padding-left: 6px;
+.mat-list-item {
+    padding-left: 8px !important;
 }

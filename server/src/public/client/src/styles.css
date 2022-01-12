@@ -22,3 +22,11 @@ div, mat-card, mat-card-content { box-sizing: border-box; }
     margin: 0px !important;
     padding: 0px !important;
 }
+
+.mat-form-field-underline::before {
+    background-color: #fff !important;
+}
+
+.mat-form-field-flex {
+    background-color: #51566180 !important;
+}
