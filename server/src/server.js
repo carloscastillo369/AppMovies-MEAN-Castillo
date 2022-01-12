@@ -3,9 +3,11 @@ const conectDB = require('./database/db');
 const cors = require('cors');
 const config = require('./config');
 const productRouter = require('./routes/products');
+const userRouter = require('./routes/users');
 
 //Creamos el servidor
 const app = express();
+
 //Conectamos a la Base de Datos
 conectDB();
 
@@ -13,6 +15,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(config.PUBLIC));
 app.use('/api/products', productRouter);
+app.use('/api/users', userRouter);
 
 //Definimos ruta principal
 app.get('/*', (req,res) => {
