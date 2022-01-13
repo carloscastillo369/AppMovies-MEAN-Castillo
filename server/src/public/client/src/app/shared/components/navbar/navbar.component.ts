@@ -1,8 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { DataUserModel } from 'src/app/core/models/datauser.model';
 
-import { NewUserModel } from 'src/app/core/models/newuser.model';
-
-import { AuthService } from 'src/app/modules/public/sign-in/services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -14,16 +13,12 @@ export class NavbarComponent implements OnInit {
 
   @Output() sidenavToggle = new EventEmitter;
   
-  public user!:NewUserModel;
-  public logged: boolean = false;
-  public isAdmin: boolean = false;
+  public user!: DataUserModel;
   
-  constructor(private _authService: AuthService) { }
+  constructor(public _authService: AuthService) { }
 
   ngOnInit(): void {
-    this._authService.getUserLogIn().subscribe(res => {
-      this.user = res[0];
-    })
+    this.getDataUser();
   }
 
   onToggleSidenav(){
@@ -31,7 +26,13 @@ export class NavbarComponent implements OnInit {
   }
 
   logOut(){
-    this._authService.logOutUser();
+    this._authService.signOut();
+  }
+
+  getDataUser(){
+    this._authService.getDataUser().subscribe(res => {
+      this.user = res.user;
+    })
   }
 
 }

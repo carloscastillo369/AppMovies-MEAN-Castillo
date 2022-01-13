@@ -1,12 +1,13 @@
 //Rutas para usuarios
 const express = require('express');
+const jwt = require('jsonwebtoken');
 const userRouter = express.Router();
 const userController = require('../controllers/users');
 const SECRET_KEY = require('../config').SECRET_KEY;
 
 //Ruta protegida
 const verifyToken = (req, res, next) => {
-    const token = req.headers['Authorization'];
+    const token = req.headers['access-token'];
 
     if (token) {
         jwt.verify(token, SECRET_KEY, (err, decoded) => {

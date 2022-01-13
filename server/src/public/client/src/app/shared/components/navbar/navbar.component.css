@@ -3,7 +3,7 @@ a {
     color: inherit;
 }
 
-mat-toolbar {
+.initial-navbar {
     width: 100%;
     height: 64px; 
     background-color: transparent;
@@ -11,9 +11,29 @@ mat-toolbar {
     z-index: 1000;
 }
 
+.navbar {
+    width: 100%;
+    height: 64px;
+    background-color: #000;
+    opacity: 0.8;
+    color: #fff;
+    position: fixed;
+    z-index: 1000;
+}
+
 .logo-container {
     display: flex;
     align-items: center;
+}
+
+.initial-logo-image {
+    width: 30px;
+    height: auto;
+    margin-right: 6px; 
+}
+
+.initial-logo-name {
+    margin-bottom: 0;
 }
 
 .logo-image {
@@ -38,22 +58,18 @@ mat-toolbar {
 }
 
 @media (min-width: 600px){
-    mat-toolbar {
-        width: 100%;
+    .initial-navbar {
         height: 100px; 
-        background-color: transparent;
-        color: #fff;
-        z-index: 1000;
     }
 
-    .logo-image {
-        width: 45px; /*ajustar 30px*/
+    .initial-logo-image {
+        width: 45px;
         height: auto;
-        margin-right: 12px; /*ajustar 6px*/
+        margin-right: 12px;
     }
     
-    .logo-name {
-        font-size: 25px; /*ajustar normal*/
+    .initial-logo-name {
+        font-size: 25px;
         margin-bottom: 0;
     }    
 }

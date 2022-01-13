@@ -16,6 +16,9 @@ import { PublicPageComponent } from './pages/public-page/public-page.component';
     HomeRoutingModule,
     SharedModule,
     MaterialModule
+  ],
+  exports: [
+    PublicPageComponent
   ]
 })
 export class PublicModule { }

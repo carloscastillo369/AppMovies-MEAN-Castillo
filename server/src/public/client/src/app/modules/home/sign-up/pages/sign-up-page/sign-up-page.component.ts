@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
-import { RegisterService } from 'src/app/modules/public/sign-up/services/register.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 import { PasswordErrorMatcher, PasswordValidator } from 'src/app/shared/validators/passwordValidators';
 import { SnackBarComponent } from 'src/app/shared/components/snack-bar/snack-bar.component';
 import { NewUserModel } from 'src/app/core/models/newuser.model';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -25,13 +26,14 @@ export class SignUpPageComponent implements OnInit {
 
   errorMatcher = new PasswordErrorMatcher();
 
-  duration: number = 3;
+  duration: number = 2;
   verticalPosition: MatSnackBarVerticalPosition = 'top';
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
 
   constructor(
     private fb:FormBuilder, 
-    private _registerService: RegisterService,
+    private _authService: AuthService,
+    private router: Router,
     private snackBar: MatSnackBar
   ) { }
 
@@ -58,17 +60,14 @@ export class SignUpPageComponent implements OnInit {
         Validators.maxLength(15), 
         Validators.pattern(this.patternPassword)
       ]],
-    confirmPassword: ['',
-      [
-        Validators.required
-      ]],
+    confirmPassword: ['', [Validators.required]],
     address: ['', [Validators.required]],
     phone: ['', 
-        [
-          Validators.required,
-          Validators.min(111111111), 
-          Validators.max(999999999)      
-        ]],
+      [
+        Validators.required,
+        Validators.min(111111111), 
+        Validators.max(999999999)      
+      ]],
     isadmin: [false],
     checkbox: ['', [Validators.requiredTrue]]
   }, {validators: PasswordValidator})
@@ -88,7 +87,7 @@ export class SignUpPageComponent implements OnInit {
     }
   }
 
-  onResetForm(){
+  resetForm(){
     this.formSignUp.reset();
   }
 
@@ -102,18 +101,32 @@ export class SignUpPageComponent implements OnInit {
       phone: this.formSignUp.value.phone,
       isadmin: this.formSignUp.value.isadmin
     }
+
     if(this.formSignUp.valid){
-      this._registerService.saveUser(newUser)
-      .subscribe(res => {
-        this.snackBar.openFromComponent( SnackBarComponent, {
-          data: "Usuario registrado con éxito!",
-          duration: this.duration*1000,
-          verticalPosition: this.verticalPosition,
-          horizontalPosition: this.horizontalPosition,
-          panelClass: 'success'
-        })
+      this._authService.signUp(newUser)
+      .subscribe((res:any) => {
+        if(res.dataUser) {
+          let token = res.dataUser.token;
+          this._authService.setToken(token);
+          this.snackBar.openFromComponent( SnackBarComponent, {
+            data: "Usuario registrado con éxito!",
+            duration: this.duration*1000,
+            verticalPosition: this.verticalPosition,
+            horizontalPosition: this.horizontalPosition,
+            panelClass: 'success'
+          });
+          this.resetForm();
+          this.router.navigate(['/movies'])
+        } else {
+            this.snackBar.openFromComponent( SnackBarComponent, {
+              data: `${res.message}`,
+              duration: this.duration*1000,
+              verticalPosition: this.verticalPosition,
+              horizontalPosition: this.horizontalPosition,
+              panelClass: 'error'
+            })
+          }
       });
-      this.onResetForm();
     }
   }
 

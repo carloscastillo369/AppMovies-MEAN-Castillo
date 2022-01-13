@@ -5,12 +5,15 @@ import { SignInPageComponent } from './modules/home/sign-in/pages/sign-in-page/s
 import { SignUpPageComponent } from './modules/home/sign-up/pages/sign-up-page/sign-up-page.component';
 import { AdminPageComponent } from './modules/admin/home/pages/admin-page/admin-page.component';
 import { PublicPageComponent } from './modules/public/home/pages/public-page/public-page.component';
+import { LoggedGuard } from './core/guards/logged.guard';
+import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   {
     path:'',
     component: HomePageComponent,
-    loadChildren: () => import(`./modules/home/home/home.module`).then(m => m.HomeModule)
+    loadChildren: () => import(`./modules/home/home/home.module`).then(m => m.HomeModule),
+    canActivate: [AuthGuard]
   },
   {
     path:'signin',
@@ -23,14 +26,16 @@ const routes: Routes = [
     loadChildren: () => import(`./modules/home/sign-up/sign-up.module`).then(m => m.SignUpModule)
   },
   {
-    path:'HomeMovie',
+    path:'',
     component: PublicPageComponent,
-    loadChildren: () => import(`./modules/public/home/public.module`).then(m => m.PublicModule)
+    loadChildren: () => import(`./modules/public/home/public.module`).then(m => m.PublicModule),
+    canActivate: [LoggedGuard]
   },
   {
     path:'admin',
     component: AdminPageComponent,
-    loadChildren: () => import(`./modules/admin/home/admin.module`).then(m => m.AdminModule)
+    loadChildren: () => import(`./modules/admin/home/admin.module`).then(m => m.AdminModule),
+    canActivate: [LoggedGuard]
   },
   {
     path:'',
@@ -44,7 +49,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation:"reload"})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

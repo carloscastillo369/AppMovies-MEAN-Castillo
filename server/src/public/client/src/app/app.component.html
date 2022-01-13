@@ -1,9 +1,33 @@
-<div class="body">
-    <div class="wallpaper">
-        <app-navbar></app-navbar>
-        <div class="page-content">
-            <router-outlet></router-outlet>
+<ng-container *ngIf="!_authService.isLogged()">
+    <div class="body">
+        <div class="wallpaper">
+            <app-navbar></app-navbar>
+            <div class="page-initial-content">
+                <router-outlet></router-outlet>
+            </div>
         </div>
-    </div>
-</div>
+    </div>   
+</ng-container>
 
+<ng-container *ngIf="_authService.isLogged()">
+    <div class="body">
+        <mat-sidenav-container>
+            <mat-sidenav #sidenav>
+                <app-sidenav-list (sidenavClose)="sidenav.close()"></app-sidenav-list>
+            </mat-sidenav>
+            <mat-sidenav-content>
+                <app-navbar (sidenavToggle)="sidenav.toggle()"></app-navbar>
+                <main class="page-content">
+                    <ng-container *ngIf="!isAdmin">
+                        <app-public-page></app-public-page>
+                    </ng-container>
+                    <ng-container *ngIf="isAdmin">
+                        <app-admin-page></app-admin-page>
+                    </ng-container>
+                </main>
+            </mat-sidenav-content>
+        </mat-sidenav-container>
+    
+        <app-footer></app-footer>   
+    </div> 
+</ng-container>

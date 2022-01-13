@@ -21,6 +21,9 @@ import { SidenavListComponent } from './components/sidenav-list/sidenav-list.com
     AdminRoutingModule,
     MaterialModule,
     FlexLayoutModule
+  ],
+  exports: [
+    AdminPageComponent
   ]
 })
 export class AdminModule { }

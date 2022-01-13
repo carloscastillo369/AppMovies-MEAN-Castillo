@@ -26,6 +26,7 @@ exports.signUpUser = async (req, res) => {
             expiresIn: expiresIn
         }
         res.send({ dataUser })
+        console.log('Usuario registrado correctamente');
 
     } catch (err) {
         if (err && err.code === 11000){
@@ -65,7 +66,7 @@ exports.signInUser = async (req, res) => {
 }
 
 exports.getDataUser = async (req, res) => {
-    let id = req.decoded.id;
+    let id = req.decoded._id;
     const user = await User.findOne({ _id: id });
     if(!user) {
         res.send({ message: 'Usuario no encontrado' });

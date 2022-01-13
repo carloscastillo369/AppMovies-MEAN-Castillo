@@ -1,19 +1,21 @@
-<mat-toolbar class="navbar">
-    <div fxFlex fxLayoutAlign="start">
-        <a class="logo-container" routerLink="/">
-            <img class="logo-image" src="../../../assets/images/logo/Logo-White.png" alt="">
-            <p class="logo-name">HomeMovie</p>
-        </a>
-    </div>
-
-    <ng-container *ngIf="logged">
+<mat-toolbar [ngClass]="[_authService.isLogged()? 'navbar' : 'initial-navbar']">
+    <ng-container *ngIf="_authService.isLogged()">
         <div fxHide.gt-xs>
             <button mat-icon-button (click)="onToggleSidenav()">
                 <mat-icon>menu</mat-icon>
             </button>
         </div>
+    </ng-container>
 
-        <ng-container *ngIf="!isAdmin">
+    <div fxFlex fxLayoutAlign="start">
+        <a class="logo-container" routerLink="/">
+            <img [ngClass]="[_authService.isLogged()? 'logo-image' : 'initial-logo-image']" src="../../../assets/images/logo/Logo-White.png" alt="">
+            <p [ngClass]="[_authService.isLogged()? 'logo-name' : 'initial-logo-name']">HomeMovie</p>
+        </a>
+    </div>
+
+    <ng-container *ngIf="_authService.isLogged()">
+        <ng-container *ngIf="!user?.isadmin">
             <div fxFlex fxLayoutAlign="end" fxHide.xs>
                 <button mat-button routerLink="/movies">
                     Películas
@@ -26,7 +28,7 @@
                 </button>
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item disabled>
-                        <mat-icon>person</mat-icon> NOMBRE
+                        <mat-icon>person</mat-icon> {{user?.name}}
                     </button>
                     <mat-divider></mat-divider>
                     <button mat-menu-item routerLink="/myorders">
@@ -43,7 +45,7 @@
             <app-cart-widget fxHide.gt-xs></app-cart-widget>
         </ng-container>
 
-        <ng-container *ngIf="isAdmin">
+        <ng-container *ngIf="user?.isadmin">
             <div fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
                 <button mat-button routerLink="/users">
                     Usuarios

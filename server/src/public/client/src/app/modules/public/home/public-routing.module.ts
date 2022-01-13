@@ -22,6 +22,11 @@ const routes: Routes = [
   {
     path: 'myorders',
     loadChildren: () => import('../myorders/myorders.module').then(m => m.MyordersModule)
+  },
+  {
+    path:'',
+    redirectTo:'/movies',
+    pathMatch: 'full'
   }
 ];
 
