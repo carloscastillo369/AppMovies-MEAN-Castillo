@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 import { NewUserModel } from 'src/app/core/models/newuser.model';
 import { UserRegisteredModel } from 'src/app/core/models/user-registered.model';
 
 import { environment } from 'src/environments/environment';
-import { DataUserModel } from '../core/models/datauser.model';
 
 
 @Injectable({
@@ -18,7 +18,14 @@ export class AuthService {
 
   private urlAPI = this.URL_BASE + '/api/users/';
 
-  constructor(private http: HttpClient, private router: Router) { }
+  public user: any;
+  public user$ = new BehaviorSubject<any>([]);
+
+
+  constructor(
+    private http: HttpClient, 
+    private router: Router
+  ) { }
 
   signUp(user: NewUserModel){
     return this.http.post<NewUserModel>(this.urlAPI + '/signup', user);
@@ -44,7 +51,7 @@ export class AuthService {
     return !!localStorage.getItem('ACCESS_TOKEN');
   }
 
-  setToken(token:any) {
+  setToken(token:string) {
     localStorage.setItem('ACCESS_TOKEN', token);
   }
 
@@ -52,8 +59,18 @@ export class AuthService {
     return localStorage.getItem('ACCESS_TOKEN');
   }
 
-  private removeToken() {
+  removeToken() {
     localStorage.removeItem('ACCESS_TOKEN');
   }
+
+  dataUser(){
+    this.getDataUser().subscribe(res => {
+      if(!res.user) {
+        this.removeToken();
+      }
+    })
+  }
+
+
 
 }

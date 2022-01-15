@@ -25,8 +25,12 @@ const routes: Routes = [
   },
   {
     path:'',
-    redirectTo:'/movies',
+    redirectTo:'/public/movies',
     pathMatch: 'full'
+  },
+  {
+    path: '**',//TODO 404 cuando no existe la ruta
+    redirectTo: '/public/movies'
   }
 ];
 

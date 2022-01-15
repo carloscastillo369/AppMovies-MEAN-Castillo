@@ -18,10 +18,10 @@
             <mat-sidenav-content>
                 <app-navbar (sidenavToggle)="sidenav.toggle()"></app-navbar>
                 <main class="page-content">
-                    <ng-container *ngIf="!isAdmin">
+                    <ng-container *ngIf="!user?.isadmin">
                         <app-public-page></app-public-page>
                     </ng-container>
-                    <ng-container *ngIf="isAdmin">
+                    <ng-container *ngIf="user?.isadmin">
                         <app-admin-page></app-admin-page>
                     </ng-container>
                 </main>

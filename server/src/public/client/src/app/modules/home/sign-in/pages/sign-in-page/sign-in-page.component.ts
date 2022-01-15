@@ -67,7 +67,6 @@ export class SignInPageComponent implements OnInit {
 
   signIn(){
     const user: UserRegisteredModel = {
-      id: '',
       email: this.formSignIn.value.email,
       password: this.formSignIn.value.password
     }
@@ -86,7 +85,8 @@ export class SignInPageComponent implements OnInit {
             panelClass: 'success'
           });
           this.resetForm();
-          this.router.navigate(['/movies'])
+          let isAdmin = res.dataUser.isadmin;
+          this.router.navigate(isAdmin? ['/admin/list'] : ['/public/movies']);
         }
         else {
           this.snackBar.openFromComponent( SnackBarComponent, {

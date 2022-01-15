@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { OrdersService } from '../../services/orders.service';
-import Swal from 'sweetalert2';
+
+import { OrderService } from 'src/app/services/order.service';
+import { DataUserModel } from 'src/app/core/models/datauser.model';
+
 
 @Component({
   selector: 'app-orders-page',
@@ -9,40 +11,29 @@ import Swal from 'sweetalert2';
 })
 export class OrdersPageComponent implements OnInit {
 
-  users:any;
+  users!: DataUserModel[];
 
   displayedColumns: string[] = ['id','nombre', 'email', 'accion'];
 
-  constructor(private _ordersService: OrdersService) { }
+  constructor(private _orderService: OrderService) { }
 
   ngOnInit(): void {
-    this._ordersService.getAllUsersOrders().subscribe(res => {
-      this.users = res;
+    this.getOrders();
+  }
+
+  getOrders(){
+    this._orderService.getOrder().subscribe(res => {
+      let users: DataUserModel[] = [];
+      res.forEach((elem:any) => {
+        let user =  {
+          _id: elem._id,
+          ...elem.user
+        }
+        users.push(user)
+      });
+      this.users = users;
     })
   }
 
-  deleteOrder(id:string){
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: "No podrás recuperarlo!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, elimínalo!',
-      allowOutsideClick: false
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this._ordersService.deleteOrder(id).subscribe((res)=>{
-          this._ordersService.getAllUsersOrders().subscribe(res => (this.users = res));
-        })
-        Swal.fire(
-          'Eliminado!',
-          'La película ha sido eliminada.',
-          'success'
-        )
-      }
-    })
-  }
 
 }

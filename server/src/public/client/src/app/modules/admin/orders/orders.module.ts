@@ -6,6 +6,7 @@ import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
 import { OrderUserComponent } from './components/order-user/order-user.component';
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CommonModule,
     OrdersRoutingModule,
     MaterialModule,
-    SharedModule
+    SharedModule,
+    FlexLayoutModule
   ]
 })
 export class OrdersModule { }

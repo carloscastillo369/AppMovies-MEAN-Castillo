@@ -67,8 +67,15 @@ th.mat-header-cell:first-of-type, th.mat-header-cell:last-of-type, td.mat-cell:f
     font-size: 13px;
 }
 
-.counter {
+.cantidad-label {
+    text-align: center;
+    margin-bottom: 3px;
+    margin-top: -22px;
+}
+
+.cantidad-counter {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
 }

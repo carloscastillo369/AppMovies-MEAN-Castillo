@@ -5,7 +5,7 @@ const SECRET_KEY = require('../config').SECRET_KEY;
 
 exports.signUpUser = async (req, res) => {
     try {
-        const expiresIn = 60;
+        const expiresIn = 300;
         const newUser = {
             name: req.body.name,
             email: req.body.email,
@@ -18,7 +18,7 @@ exports.signUpUser = async (req, res) => {
         const user = new User(newUser);
         await user.save();
     
-        const token = jwt.sign({ _id: user._id }, SECRET_KEY, { expiresIn: expiresIn });
+        const token = jwt.sign({ _id: user._id, isadmin: user.isadmin }, SECRET_KEY, { expiresIn: expiresIn });
         const dataUser = {
             name: user.name,
             email: user.email,
@@ -46,8 +46,8 @@ exports.signInUser = async (req, res) => {
         if(!validPassword) {
             res.send({ message: 'Contraseña incorrecta' });
         } else {
-            const expiresIn = 60;
-            const token = jwt.sign({ _id: user._id }, SECRET_KEY, { expiresIn: expiresIn });
+            const expiresIn = 300;
+            const token = jwt.sign({ _id: user._id, isadmin: user.isadmin }, SECRET_KEY, { expiresIn: expiresIn });
             const dataUser = {
                 name: user.name,
                 email: user.email,
@@ -71,8 +71,8 @@ exports.getDataUser = async (req, res) => {
     if(!user) {
         res.send({ message: 'Usuario no encontrado' });
     } else {
-        const expiresIn = 60;
-        const token = jwt.sign({ id: user.id }, SECRET_KEY, { expiresIn: expiresIn });
+        const expiresIn = 300;
+        const token = jwt.sign({ id: user.id, isadmin: user.isadmin }, SECRET_KEY, { expiresIn: expiresIn });
         
         res.json({user : {
             name:user.name, 

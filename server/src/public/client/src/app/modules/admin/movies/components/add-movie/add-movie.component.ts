@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiMoviesService } from 'src/app/services/api-movies.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-movie',
@@ -12,7 +13,8 @@ export class AddMovieComponent implements OnInit {
 
   constructor(
     private _apiMoviesService: ApiMoviesService, 
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -54,6 +56,7 @@ export class AddMovieComponent implements OnInit {
       })
     })
     this.formAddMovie.reset();
+    this.router.navigate(['/admin/list']);
   }
 
   isValidField (field:string){

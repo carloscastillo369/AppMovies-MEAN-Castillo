@@ -5,7 +5,8 @@ import { SignInPageComponent } from './modules/home/sign-in/pages/sign-in-page/s
 import { SignUpPageComponent } from './modules/home/sign-up/pages/sign-up-page/sign-up-page.component';
 import { AdminPageComponent } from './modules/admin/home/pages/admin-page/admin-page.component';
 import { PublicPageComponent } from './modules/public/home/pages/public-page/public-page.component';
-import { LoggedGuard } from './core/guards/logged.guard';
+import { AdminGuard } from './core/guards/admin.guard';
+import { PublicGuard } from './core/guards/public.guard';
 import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
@@ -18,38 +19,42 @@ const routes: Routes = [
   {
     path:'signin',
     component: SignInPageComponent,
-    loadChildren: () => import(`./modules/home/sign-in/sign-in.module`).then(m => m.SignInModule)
+    loadChildren: () => import(`./modules/home/sign-in/sign-in.module`).then(m => m.SignInModule),
+    canActivate: [AuthGuard]
   },
   {
     path:'signup',
     component: SignUpPageComponent,
-    loadChildren: () => import(`./modules/home/sign-up/sign-up.module`).then(m => m.SignUpModule)
-  },
-  {
-    path:'',
-    component: PublicPageComponent,
-    loadChildren: () => import(`./modules/public/home/public.module`).then(m => m.PublicModule),
-    canActivate: [LoggedGuard]
+    loadChildren: () => import(`./modules/home/sign-up/sign-up.module`).then(m => m.SignUpModule),
+    canActivate: [AuthGuard]
   },
   {
     path:'admin',
     component: AdminPageComponent,
     loadChildren: () => import(`./modules/admin/home/admin.module`).then(m => m.AdminModule),
-    canActivate: [LoggedGuard]
+    data: {expectedRole: true},
+    canActivate: [AdminGuard]
+  },
+  {
+    path:'public',
+    component: PublicPageComponent,
+    loadChildren: () => import(`./modules/public/home/public.module`).then(m => m.PublicModule),
+    data: {expectedRole: false},
+    canActivate: [PublicGuard]
   },
   {
     path:'',
-    redirectTo:'/',
+    redirectTo:'/signin',
     pathMatch: 'full'
   },
   {
     path: '**',//TODO 404 cuando no existe la ruta
-    redirectTo: '/'
+    redirectTo: '/signin'
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation:"reload"})],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

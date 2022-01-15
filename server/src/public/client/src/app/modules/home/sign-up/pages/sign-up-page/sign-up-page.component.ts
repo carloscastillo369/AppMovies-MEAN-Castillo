@@ -93,7 +93,6 @@ export class SignUpPageComponent implements OnInit {
 
   signUp(){
     const newUser: NewUserModel = {
-      id: '',
       name: this.formSignUp.value.name,
       email: this.formSignUp.value.email,
       password: this.formSignUp.value.password,

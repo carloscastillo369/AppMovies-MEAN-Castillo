@@ -1,16 +1,41 @@
+.order-container {
+    padding: 10px 8px;
+}
+
 .orders-content {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    margin-top: 15px;
 }
 
 .personal-data {
-    width: 400px;
-    height: 120px;
+    width: 100%;
+    background-color: #212121;
+    border-radius: 5px;
+    padding: 20px 5px;
+    margin-bottom: 10px;
+}
+
+.data {
     background-color: #fff;
     color: #000;
-    border-radius: 10px;
-    padding: 15px;
+    padding: 10px;
+}
+
+.orders-table-container {
+    width: 100%;
+    background-color: #212121;
+    border-radius: 5px;
+    padding: 20px 5px;
+    margin-bottom: 10px;
+}
+
+.orders-table {
+    width: 100%;
+    padding: 10px;
+    background-color: #fff;
+    color: #000;
 }
 
 mat-divider {
@@ -29,14 +54,6 @@ mat-divider {
 .text-subtitle {
     font-weight: normal;
     font-style: italic;
-}
-
-.orders-table {
-    width: 900px;
-    padding: 15px;
-    background-color: #fff;
-    color: #000;
-    border-radius: 10px;
 }
 
 .total-price {

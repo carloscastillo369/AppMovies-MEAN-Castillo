@@ -26,8 +26,8 @@ export class ApiMoviesService {
     return this.http.post<MovieModel>(this.urlAPI, movie);
   }
 
-  updateMovie(movie: MovieModel, id: string){
-    return this.http.put<MovieModel>(this.urlAPI + id, movie);
+  updateMovie(movie: any, id: string){
+    return this.http.put<any>(this.urlAPI + id, movie);
   }
 
   deleteMovie(id: string){

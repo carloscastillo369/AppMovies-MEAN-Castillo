@@ -5,7 +5,7 @@
 
     <ng-container *ngIf="_authService.isLogged()">
         <ng-container *ngIf="!user?.isadmin">
-            <a mat-list-item class="nav-caption" routerLink="/movies" (click)="onSidenavClose()">
+            <a mat-list-item class="nav-caption" routerLink="/public/movies" (click)="onSidenavClose()">
                 <mat-icon>theaters</mat-icon> <span>Peliculas</span>
             </a>
 
@@ -19,7 +19,7 @@
                     <mat-icon>person</mat-icon> {{user?.name}}
                 </button>
                 <mat-divider></mat-divider>
-                <button mat-menu-item routerLink="/myorders" (click)="onSidenavClose()">
+                <button mat-menu-item routerLink="/public/myorders" (click)="onSidenavClose()">
                     <mat-icon>shopping_basket</mat-icon>
                     <span>Mis pedidos</span>
                 </button>
@@ -31,16 +31,13 @@
         </ng-container>
 
         <ng-container *ngIf="user?.isadmin">
-            <a mat-list-item class="nav-caption" routerLink="/users" (click)="onSidenavClose()">
-                <mat-icon>person</mat-icon> <span>Usuarios</span> 
-            </a>
-            <a mat-list-item class="nav-caption" routerLink="/orders" (click)="onSidenavClose()">
-                <mat-icon>shopping_bag</mat-icon> <span>Pedidos</span> 
-            </a>
-            <a mat-list-item class="nav-caption" routerLink="/movies" (click)="onSidenavClose()">
+            <a mat-list-item class="nav-caption" routerLink="/admin/list" (click)="onSidenavClose()">
                 <mat-icon>theaters</mat-icon> <span>Películas</span> 
             </a>
-            <a mat-list-item class="nav-caption" routerLink="/" (click)="onSidenavClose()">
+            <a mat-list-item class="nav-caption" routerLink="/admin/orders" (click)="onSidenavClose()">
+                <mat-icon>shopping_bag</mat-icon> <span>Pedidos</span> 
+            </a>
+            <a mat-list-item class="nav-caption" (click)="logOut()">
                 <mat-icon>lock_open</mat-icon> <span>Cerrar Sesión</span> 
             </a>            
         </ng-container>        

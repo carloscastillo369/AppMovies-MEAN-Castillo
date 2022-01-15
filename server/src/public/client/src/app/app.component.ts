@@ -10,12 +10,19 @@ export class AppComponent implements OnInit {
   title = 'client';
 
   public isLogged!: boolean;
-  public isAdmin: boolean = false;
+  public user: any;
 
   constructor(public _authService: AuthService) { }
 
   ngOnInit(): void {
     this.isLogged = this._authService.isLogged();
+    this.getDataUser();
+  }
+
+  getDataUser(){
+    this._authService.getDataUser().subscribe(res => {
+      this.user = res.user;
+    })
   }
 
 }

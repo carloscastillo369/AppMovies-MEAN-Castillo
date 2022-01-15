@@ -1,9 +1,16 @@
 import { OrderModel } from "./order.model";
 
 export interface UserOrderModel {
-    id: string,
-    name: string,
-    email: string,
-    orders: Array<OrderModel>
-    totalprice: number
+    _id: string,
+    user: {
+        name: string,
+        email: string,
+        address: string,
+        phone: string,
+        isadmin: boolean,
+        createdAt: string, 
+        updatedAt: string,
+        token: string,
+    },
+    order: Array<OrderModel>
 }

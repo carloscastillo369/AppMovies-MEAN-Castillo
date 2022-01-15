@@ -17,12 +17,20 @@ export class ListMoviesPageComponent implements OnInit {
   constructor(private _apiMoviesService: ApiMoviesService) { }
 
   ngOnInit(): void {
-    this.getMovies();
+    this.getMoviesAvailable();
   }
 
-  getMovies(){
+  getMoviesAvailable(){
     this._apiMoviesService.getMovie().subscribe(res => {
-      this.movies = res;
+      let availableMovies: MovieModel[] = [];
+      res.forEach(elem => {
+        if(elem.purchasestock != 0 || elem.rentalstock != 0){
+          availableMovies.push(elem);
+        }
+      })
+
+      this.movies = availableMovies;
+      
     });
   }
 

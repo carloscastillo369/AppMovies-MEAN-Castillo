@@ -17,8 +17,12 @@ export class MoviesPageComponent implements OnInit {
   constructor(private _apiMoviesService: ApiMoviesService) { }
 
   ngOnInit(): void {
-    this._apiMoviesService.getMovie().subscribe(res => (this.movies = res));
+    this.getMovies();
     
+  }
+
+  getMovies(){
+    this._apiMoviesService.getMovie().subscribe(res => (this.movies = res));
   }
 
   deleteMovie(id: string){
@@ -34,7 +38,7 @@ export class MoviesPageComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this._apiMoviesService.deleteMovie(id).subscribe((res)=>{
-          this._apiMoviesService.getMovie().subscribe(res => (this.movies = res));
+          this.getMovies();
         })
         Swal.fire(
           'Eliminado!',

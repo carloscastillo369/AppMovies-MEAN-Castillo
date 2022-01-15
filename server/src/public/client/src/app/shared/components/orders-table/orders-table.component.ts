@@ -10,7 +10,7 @@ import { OrderModel } from 'src/app/core/models/order.model';
 })
 export class OrdersTableComponent implements OnInit {
 
-  @Input() orders!:OrderModel[];
+  @Input() orders!:any;
 
   public displayedColumns: string[] = ['posicion','descripcion','tipo', 'cantidad', 'precio', 'subtotal'];
 

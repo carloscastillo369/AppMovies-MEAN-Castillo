@@ -2,14 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
-import { NewUserModel } from 'src/app/core/models/newuser.model';
+import { DataUserModel } from 'src/app/core/models/datauser.model';
 import { OrderModel } from 'src/app/core/models/order.model';
 
-import { AuthService } from 'src/app/modules/public/sign-in/services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/modules/public/cart/services/cart.service';
-import { CheckoutService } from 'src/app/modules/public/checkout/services/checkout.service';
+import { OrderService } from 'src/app/services/order.service';
+import { ApiMoviesService } from 'src/app/services/api-movies.service';
 
 import { SnackBarComponent } from 'src/app/shared/components/snack-bar/snack-bar.component';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -19,8 +21,8 @@ import { SnackBarComponent } from 'src/app/shared/components/snack-bar/snack-bar
 })
 export class CheckoutPageComponent implements OnInit {
 
-  public user!:NewUserModel;
-  public orders:OrderModel[] = [];
+  public user!: DataUserModel;
+  public orders: OrderModel[] = [];
   public totalPrice: number = 0;
 
   duration: number = 3;
@@ -30,15 +32,24 @@ export class CheckoutPageComponent implements OnInit {
   constructor(
     private _authService: AuthService,
     private _cartService: CartService,
-    private _checkoutService: CheckoutService,
+    private _orderService: OrderService,
+    private _apiMoviesService: ApiMoviesService,
     private snackBar: MatSnackBar,
     private router: Router
   ) { }
 
   ngOnInit(): void {
-    this._authService.getUserLogIn().subscribe(res => {
-      this.user = res[0];
-    });
+    this.getDataUser();
+    this.getItemsCart();
+  }
+
+  getDataUser() {
+    this._authService.getDataUser().subscribe(res => {
+      this.user = res.user;
+    })
+  }
+
+  getItemsCart() {
     this._cartService.getCartMoviesList().subscribe(res => {
       let Orders: OrderModel[] = [];
       res.map((i:any) => {
@@ -56,15 +67,14 @@ export class CheckoutPageComponent implements OnInit {
     })
   }
 
-  payment(){ 
-    this._checkoutService.saveOrder({
-      id: this.user.id,
-      name: this.user.name,
-      email: this.user.email,
-      orders: this.orders,
-      totalprice: this.totalPrice
-    })
+  payment() { 
+    this._orderService.saveOrder(this.user, this.orders)
     .subscribe(res => {
+      this.orders.forEach(elem => {
+        this.reduceStock(elem.quantity, elem.id, elem.type);
+      })
+    })
+    setTimeout(() => {
       this.snackBar.openFromComponent( SnackBarComponent, {
         data: 'Pedido realizado con éxito!',
         duration: this.duration*1000,
@@ -73,8 +83,41 @@ export class CheckoutPageComponent implements OnInit {
         panelClass: 'success'
       })
       this._cartService.removeAllCart();
-      this.router.navigate(['/HomeMovie/movies']);
-    })
+      this.router.navigate(['/public/movies']);      
+    }, 3000)
   }
 
+  reduceStock(cantidad:any, id:string, tipo:string) {
+    if(tipo == 'compra'){
+      this._apiMoviesService.getMovie(id).subscribe((res:any) => {
+        let actualStock = res[0].purchasestock;
+        let newStock = actualStock - cantidad;
+        this._apiMoviesService.updateMovie({purchasestock: newStock}, id).subscribe(res => {
+          this.snackBar.openFromComponent( SnackBarComponent, {
+            data: 'Procesando tu compra...',
+            duration: this.duration*1000,
+            verticalPosition: this.verticalPosition,
+            horizontalPosition: this.horizontalPosition,
+            panelClass: 'error'
+          })
+        })
+      })
+    } 
+    
+    else {
+      this._apiMoviesService.getMovie(id).subscribe((res:any) => {
+        let actualStock = res[0].rentalstock;
+        let newStock = actualStock - 1;
+        this._apiMoviesService.updateMovie({rentalstock: newStock}, id).subscribe(res => {
+          this.snackBar.openFromComponent( SnackBarComponent, {
+            data: 'Procesando tu compra...',
+            duration: this.duration*1000,
+            verticalPosition: this.verticalPosition,
+            horizontalPosition: this.horizontalPosition,
+            panelClass: 'error'
+          })
+        })
+      })
+    }
+  }
 }

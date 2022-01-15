@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { UserOrderModel } from 'src/app/core/models/user-order.model';
+import { MyOrderModel } from 'src/app/core/models/myorder.model';
 
-import { AuthService } from 'src/app/modules/public/sign-in/services/auth.service';
-import { OrdersService } from 'src/app/modules/public/myorders/services/orders.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { OrderService } from 'src/app/services/order.service';
+
 
 @Component({
   selector: 'app-myorders-page',
@@ -13,25 +14,49 @@ import { OrdersService } from 'src/app/modules/public/myorders/services/orders.s
 })
 export class MyordersPageComponent implements OnInit {
 
-  public userOrders!:UserOrderModel[];
+  public orders!:MyOrderModel[];
 
   constructor(
-    private _ordersService: OrdersService,
+    private _orderService: OrderService,
     private _authService: AuthService,
     private router:Router
   ) { }
 
   ngOnInit(): void {
-    this._authService.getUserLogIn().subscribe(user => {
-      if(user.length > 0){
-        this._ordersService.getAllUsersOrders().subscribe(res => {
-          const finder = res.filter((i:any) => i.email == user[0].email);
-          this.userOrders = finder;
-        })
-      } else {
-        this.router.navigate(['/HomeMovie/movies'])
-      }
+    this.getDataUser();
+  }
+
+  getDataUser() {
+    this._authService.getDataUser().subscribe(res => {
+      let userEmail = res.user.email;
+      this.getOrders(userEmail);
     })
+  }
+
+  getOrders(user: string){
+    this._orderService.getOrder().subscribe(res => { 
+      let orders:MyOrderModel[] = [];
+      res.forEach((elem:any) => {
+        if(user === elem.user.email) {
+          let order = {
+            total: this.CalcTotal(elem.order),
+            order: elem.order
+          }
+          orders.push(order);
+        }
+      })
+
+      this.orders = orders; 
+    })
+  }
+
+  CalcTotal(orders:any) {
+    let total: number = 0;
+    orders.forEach((elem:any) => {
+      let subtotal = elem.quantity*elem.price;
+      total += subtotal;
+    })
+    return total;
   }
 
 }

@@ -1,27 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminGuard } from 'src/app/core/guards/admin.guard';
 
 const routes: Routes = [
-  {
-    path: 'users',
-    loadChildren: () => import('../users/users.module').then(m => m.UsersModule)
-  },
   {
     path: 'orders',
     loadChildren: () => import('../orders/orders.module').then(m => m.OrdersModule)
   },
   {
-    path: 'movies',
+    path: 'list',
     loadChildren: () => import('../movies/movies.module').then(m => m.MoviesModule)
   },
   {
     path:'',
-    redirectTo:'/admin/users',
+    redirectTo:'/admin/list',
     pathMatch: 'full'
   },
   {
     path: '**',//TODO 404 cuando no existe la ruta
-    redirectTo: '/admin/users'
+    redirectTo: '/admin/list'
   }
 ];
 

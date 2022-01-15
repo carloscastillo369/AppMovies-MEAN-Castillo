@@ -1,4 +1,4 @@
-<a [routerLink]="['/detailmovie', movie._id, movie.title]">
+<a [routerLink]="['/public/detailmovie', movie._id, movie.title]">
     <mat-card class="card card-hover">
         <img mat-card-image src={{movie.cardimg}} class="card-image-overlay">
         <mat-card-content class="card-content">
@@ -6,17 +6,12 @@
             <h3>{{movie.title}}</h3>
             <span>{{movie.genre}}</span>
         </mat-card-content>
-        <div *ngIf="movie.purchasestock != 0 || movie.rentalstock != 0" fxFlex="row" fxLayoutAlign="space-between" fxLayoutAlign.gt-xs="end" class="options">
+        <div fxFlex="row" fxLayoutAlign="space-between" fxLayoutAlign.gt-xs="end" class="options">
             <div *ngIf="movie.purchasestock != 0" fxFlex="48" fxFlex.gt-xs="30" class="option buy-option">
                 <p>Compra</p>
             </div>
             <div *ngIf="movie.rentalstock != 0" fxFlex="48" fxFlex.gt-xs="30" class="option rent-option">
                 <p>Renta</p>
-            </div>
-        </div>
-        <div *ngIf="movie.purchasestock == 0 && movie.rentalstock == 0" class="options">
-            <div class="no-available">
-                <p>Agotado</p>
             </div>
         </div>
     </mat-card>

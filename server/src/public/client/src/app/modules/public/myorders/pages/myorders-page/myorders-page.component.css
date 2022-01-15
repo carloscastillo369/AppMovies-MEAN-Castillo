@@ -14,9 +14,6 @@ mat-expansion-panel-header {
     min-height: 70px;
 }
 
-.order-description {
-    width: 50%;
-}
 
 .orders-empty {
     text-align: center;
@@ -36,3 +33,12 @@ mat-expansion-panel-header {
     align-items: center;
     justify-content: center;
 }
+
+@media(max-width:599px){
+    .myorders-text {
+        font-size: 18px;
+        font-style: italic;
+        color: #fff;
+    }
+}
+

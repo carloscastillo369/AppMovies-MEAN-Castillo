@@ -1,11 +1,46 @@
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+input[type=number] { -moz-appearance:textfield; }
+
+
+.addmovie-container {
+    padding: 20px 20px;
+}
+
 .form-add {
     max-width: 1000px;
     margin: 0 auto;
     padding: 30px;
-    padding-top: 100px;
+    padding-bottom: 100px;
     position: relative;
     border: 1px solid #000;
     border-radius: 10px;
+    background-color: #05070ccc;
+}
+
+input, label, textarea, mat-label, mat-icon, .span-prefix, .span-suffix, mat-datepicker-toggle {
+    color: #fff;
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.322);
+}
+
+textarea {
+    resize: vertical;
+}
+
+.align-right {
+    text-align: right;
+}
+
+.title {
+    color: #fff;
+    margin-top: 20px;
 }
 
 .main-data {
@@ -63,6 +98,35 @@
     position: absolute;
     width: 180px;
     height: 45px;
-    top: 30px;
+    bottom: 30px;
     right: 30px;
+}
+
+.btn-save:disabled {
+    color: #242222af !important;
+    background-color: #706c6cc2 !important;
+}
+
+@media(max-width:700px){
+    .addmovie-container {
+        padding: 20px 5px;
+    }
+}
+
+@media(max-width:599px){
+    .title {
+        font-size: 16px;
+    }
+
+    .main-data > mat-form-field {
+        width: 100%;
+    }
+
+    .number-data > mat-form-field {
+        width: 100%;
+    }
+
+    .string-data > mat-form-field {
+        width: 100%;
+    }
 }

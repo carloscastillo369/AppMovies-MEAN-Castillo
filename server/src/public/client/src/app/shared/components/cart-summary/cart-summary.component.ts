@@ -3,8 +3,6 @@ import { Router } from '@angular/router';
 import { CartMovieModel } from 'src/app/core/models/cartmovie.model';
 import { CartService } from 'src/app/modules/public/cart/services/cart.service';
 
-import { AuthService } from 'src/app/modules/public/sign-in/services/auth.service';
-
 
 @Component({
   selector: 'app-cart-summary',
@@ -17,7 +15,6 @@ export class CartSummaryComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private _auth: AuthService,
     private _cartService: CartService
   ) { }
 
@@ -25,17 +22,6 @@ export class CartSummaryComponent implements OnInit {
     this._cartService.getCartMoviesList()
     .subscribe((res) => {
       this.totalPrice = this._cartService.getTotalPrice();
-    })
-  }
-
-  goToCheckout(){
-    this._auth.getUserLogIn().subscribe(res => {
-      if(res.length != 0){
-        
-        this.router.navigate(['/HomeMovie/checkout'])
-      }else {
-        this.router.navigate(['/HomeMovie/signin'])
-      }
     })
   }
 

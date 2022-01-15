@@ -1,6 +1,5 @@
 <div class="table-container">
   <table mat-table [dataSource]="orders" class="table-content">
- 
     <ng-container matColumnDef="posicion">
       <th mat-header-cell *matHeaderCellDef> No. </th>
       <td mat-cell *matCellDef="let order"> {{orders.indexOf(order) + 1}} </td>

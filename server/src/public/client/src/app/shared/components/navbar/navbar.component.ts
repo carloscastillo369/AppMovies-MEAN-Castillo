@@ -19,6 +19,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDataUser();
+    this._authService.dataUser();
   }
 
   onToggleSidenav(){
