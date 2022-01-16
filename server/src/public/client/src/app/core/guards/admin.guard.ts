@@ -9,20 +9,27 @@ import decode from 'jwt-decode';
 })
 export class AdminGuard implements CanActivate {
 
-  constructor(private _authService: AuthService, private router: Router) {}
+  constructor(
+    private _authService: AuthService, 
+    private router: Router
+  ) {}
   
   canActivate(route: ActivatedRouteSnapshot): boolean {
-    const token: any = this._authService.getToken();
-    const decodeToken: any = decode(token);
-    const isAdmin = decodeToken.isadmin;
+    if(this._authService.isLogged()){
+      const token: any = this._authService.getToken();
+      const decodeToken: any = decode(token);
+      const isAdmin = decodeToken.isadmin;
+      const expectedRole = route.data.expectedRole
+      
+      if(isAdmin !== expectedRole){
+        this.router.navigate(['/public'])
+        return false;
+      }
 
-    const expectedRole = route.data.expectedRole
-    
-    if(isAdmin !== expectedRole){
-      this.router.navigate(['/public'])
-      return false;
+      return true;
     }
-    
-    return true;
+
+    this.router.navigate(['/']);
+    return false;
   }
 }

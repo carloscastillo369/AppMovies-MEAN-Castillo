@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+
+import { DataUserModel } from './core/models/datauser.model';
+
 import { AuthService } from './services/auth.service';
+
 
 @Component({
   selector: 'app-root',
@@ -10,7 +14,7 @@ export class AppComponent implements OnInit {
   title = 'client';
 
   public isLogged!: boolean;
-  public user: any;
+  public user!: DataUserModel;
 
   constructor(public _authService: AuthService) { }
 

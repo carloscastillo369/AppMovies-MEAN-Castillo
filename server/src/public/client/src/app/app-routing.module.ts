@@ -5,9 +5,10 @@ import { SignInPageComponent } from './modules/home/sign-in/pages/sign-in-page/s
 import { SignUpPageComponent } from './modules/home/sign-up/pages/sign-up-page/sign-up-page.component';
 import { AdminPageComponent } from './modules/admin/home/pages/admin-page/admin-page.component';
 import { PublicPageComponent } from './modules/public/home/pages/public-page/public-page.component';
+
+import { AuthGuard } from './core/guards/auth.guard';
 import { AdminGuard } from './core/guards/admin.guard';
 import { PublicGuard } from './core/guards/public.guard';
-import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -44,12 +45,12 @@ const routes: Routes = [
   },
   {
     path:'',
-    redirectTo:'/signin',
+    redirectTo:'/',
     pathMatch: 'full'
   },
   {
     path: '**',//TODO 404 cuando no existe la ruta
-    redirectTo: '/signin'
+    redirectTo: '/'
   }
 ];
 
