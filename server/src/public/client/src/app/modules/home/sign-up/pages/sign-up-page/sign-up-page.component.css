@@ -30,6 +30,7 @@ mat-icon {
 
 input, label, mat-label, mat-icon {
     color: #fff;
+    caret-color: #fff;
 }
 
 input::placeholder {

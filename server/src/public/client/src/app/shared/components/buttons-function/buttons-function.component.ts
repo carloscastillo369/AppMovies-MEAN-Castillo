@@ -7,7 +7,7 @@ import { CartService } from 'src/app/services/cart.service';
 import { ApiMoviesService } from 'src/app/services/api-movies.service';
 
 import { ModalTrailerComponent } from '../modal-trailer/modal-trailer.component';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-buttons-function',
@@ -32,13 +32,27 @@ export class ButtonsFunctionComponent implements OnInit {
   buyMovie(id: string){
     this._apiMoviesService.getMovie(id).subscribe(res => {
         this._cartService.addMovieToCart(res[0], res[0].purchaseprice, res[0].purchasestock, 'compra');
-    });   
+    });
+    Swal.fire({
+      position: 'top',
+      icon: 'success',
+      title: 'Película agregada como Compra!',
+      showConfirmButton: false,
+      timer: 2500
+    })
   }
 
   rentMovie(id: string){
     this._apiMoviesService.getMovie(id).subscribe(res => {
         this._cartService.addMovieToCart(res[0], res[0].rentalprice, res[0].rentalstock, 'renta');
-    });   
+    });
+    Swal.fire({
+      position: 'top',
+      icon: 'success',
+      title: 'Película agregada como Renta!',
+      showConfirmButton: false,
+      timer: 2500
+    })
   }
 
   openDialog(movie: MovieModel){

@@ -21,6 +21,7 @@ mat-icon {
 
 input, label, mat-label, mat-icon, mat-checkbox {
     color: #fff;
+    caret-color: #fff;
 }
 
 input::placeholder {

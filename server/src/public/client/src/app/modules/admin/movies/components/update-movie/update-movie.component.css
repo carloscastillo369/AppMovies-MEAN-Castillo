@@ -32,6 +32,7 @@ input[type=number] { -moz-appearance:textfield; }
 
 input, label, textarea, mat-label, mat-icon, .span-prefix, .span-suffix, mat-datepicker-toggle {
     color: #fff;
+    caret-color: #fff;
 }
 
 textarea {

@@ -1,6 +1,6 @@
 <ng-container *ngIf="orders, else ProgressSpinner">
-  <ng-container *ngIf="orders.length > 0">
-    <div class="myorders-container">
+  <div class="myorders-container">
+    <ng-container *ngIf="orders.length > 0">
       <h3 class="myorders-text"> <mat-icon>shopping_basket</mat-icon> Mis pedidos</h3>
       <mat-accordion>
         <mat-expansion-panel *ngFor="let order of orders" hideToggle>
@@ -12,19 +12,23 @@
                 <p class="order-description">Precio Total: $ {{(order.total).toFixed(2)}}</p>
             </mat-panel-description>
           </mat-expansion-panel-header>
-  
+   
           <app-orders-table [orders]="order.order"></app-orders-table>
          
         </mat-expansion-panel>
-      </mat-accordion>
-    </div>
-  </ng-container>
+      </mat-accordion>        
+    </ng-container>
 
-  <ng-container *ngIf="orders.length == 0">
-    <div class="orders-empty">
-      <h1 class="orders-empty-text">No tiene ningún pedido realizado.</h1>
+    <ng-container *ngIf="orders.length == 0">
+      <div class="order-empty">
+        <h1 class="order-empty-text">No tiene ningún pedido de compra aún.</h1>
+        <mat-icon>shopping_basket</mat-icon>
+        <p class="link-to-movies">
+          Vuelva a <a mat-raised-button [routerLink]="['/public/movies']"> Películas </a> para comprar o alquilar una película de nuestro catálogo.
+        </p>
     </div>
-  </ng-container>
+    </ng-container>
+  </div>
 </ng-container>
 
 <ng-template #ProgressSpinner>

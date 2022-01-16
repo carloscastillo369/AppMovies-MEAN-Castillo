@@ -2,9 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTable } from '@angular/material/table';
 
 import { CartMovieModel } from 'src/app/core/models/cartmovie.model';
-
 import { CartService } from 'src/app/services/cart.service';
 
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-cart-table',
@@ -31,12 +31,48 @@ export class CartTableComponent implements OnInit {
   }
 
   deleteCartItem(product: CartMovieModel){
-    this._cartService.deleteCartItem(product);
-    this.table.renderRows();
+    Swal.fire({
+      title: '¿Estás seguro?',
+      icon: 'warning',
+      text: "Estas a punto de eliminar esta película de la lista de tu carrito.",
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, elimínalo!',
+      allowOutsideClick: false
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._cartService.deleteCartItem(product);
+        this.table.renderRows();
+        Swal.fire(
+          this.cartMovies.length == 0? 'Carrito vacío!' : 'Eliminado!',
+          this.cartMovies.length == 0? 'Vuelve a Películas para agregar una película a tu carrito' : 'La película ha sido eliminada del carrito.',
+          'success'
+        )
+      }
+    })
   }
 
   removeAllCart(){
-    this._cartService.removeAllCart();
+    Swal.fire({
+      title: '¿Estás seguro?',
+      icon: 'warning',
+      text: "Estas a punto de vaciar por completo tu carrito.",
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, vaciar carrito!',
+      allowOutsideClick: false
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._cartService.removeAllCart();
+        Swal.fire(
+          'Carrito vacío!',
+          'Vuelve a Películas para agregar una película a tu carrito',
+          'success'
+        )
+      }
+    })    
   }
 
   increase( id: string ){

@@ -66,11 +66,10 @@ export class AuthService {
   dataUser(){
     this.getDataUser().subscribe(res => {
       if(!res.user) {
+        localStorage.removeItem('cart');
         this.removeToken();
       }
     })
   }
-
-
-
+  
 }
