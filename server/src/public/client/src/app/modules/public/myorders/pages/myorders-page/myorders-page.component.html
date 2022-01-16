@@ -22,7 +22,7 @@
     <ng-container *ngIf="orders.length == 0">
       <div class="order-empty">
         <h1 class="order-empty-text">No tiene ningún pedido de compra aún.</h1>
-        <mat-icon>shopping_basket</mat-icon>
+        <mat-icon class="order-icon-empty">shopping_basket</mat-icon>
         <p class="link-to-movies">
           Vuelva a <a mat-raised-button [routerLink]="['/public/movies']"> Películas </a> para comprar o alquilar una película de nuestro catálogo.
         </p>
