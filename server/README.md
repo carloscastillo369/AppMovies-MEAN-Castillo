@@ -48,23 +48,43 @@ http://localhost:8080
 ## Funcionamiento ⚙️
 
 **Como cliente**
-_El iniciar la app, el cliente deberá registrarse si ya está registrado entonces deberá logearse. La primera vez que se registre el cliente no necesitará logearse._
 
-_Una vez logeado el cliente podrá observar la lista de péliculas disponibles, ver detalles de cada una de ella e ir agregandalas al carrito._
+_El iniciar la app, el cliente deberá registrarse si ya está registrado entonces deberá logearse. Solo la primera vez que se registre el cliente no necesitará logearse._
 
-_En el icono del carrito se verá el número de items conforme se agregan las películas._
+_Una vez logeado el cliente podrá observar la lista de cards de péliculas disponibles. En la parte superior de cada card se mostrará la disponibilidad (compra y/o renta). Al presioinar en un card, este le llevará a otra ruta donde verá más detalles de dicho card además de una lista de botones como: ver trailer, comprar, alquilar, seguir comprando, ir al cart._ 
 
-_Una vez el cliente termine la selección de películas que desea comprar o alquilar. En el carrito podrá ver una tabla con la lista de películas agregadas y podrá eliminar una o todas en caso lo desee, también podrá aumentar la cantidad de compra o el número de días que desea alquilar la película._
+* _Ver trailer: Abrirá un modal donde se reproducirá el trailer de la película._
+* _Compra y Renta: Agregará una unidad (01) de esta película a la lista del Cart. Estó se verá reflejado inmediatamente en la barra de navegación sobre el icono de carrito de compras._
+* _Seguir comprando: Llevará al cliente a la lista de películas para seguir comprando/alquilando._
+* _Ir al Cart:Llevará al cliente a la ruta del Cart. Donde mostrará la lista de películas agregadas._
 
-_Una vez conforme el cliente con las películas que desea comprar y alquilar, la cantidad y el tiempo, podrá ir a pagar. Aquí se le mostrará nuevamente la lista de películas agregadas que apartir de aquí será la orden del cliente. También se muestra la información personal del cliente._
+_Una vez el cliente termine la selección de películas que desea comprar o alquilar, para continuar con su compra deberá dirigirse al icono de carrito de compras que se encuentra en la barra de navegación. En el carrito podrá ver una tabla con la lista de películas agregadas, y un card con el resumen de su compra mostrando el monto total a pagar por la compra y dos botones: Realizar Pedido y Seguir comprando._
 
-_Confirmada la compra. Al cabo de unos segundos podra ir a su perfil y ver sus pedidos. Aquí aparecerá todos los pedidos que haya realizado._
+_La tabla del cart está formado por 7 columnas: N°, Descripción, Acción, Tipo, Cantidad/Días, Precio y Subtotal._
+
+* _N°: Posición en la lista del Cart._
+* _Descripción: Breve descripción de la película agregada con imagen. Clickeando sobre la descripción de la película le llevará hacia el detalle de película, donde podrá cambiar su opción de compra (compra o renta)._
+* _Acción: Un botón para eliminar la película de lista del Cart._
+* _Tipo: Mostrará Compra si se seleccionó comprar o Renta si se seleccionó alquilar._
+* _Cantidad/Días: Para aumentar la cantidad de unidades de compra, en caso sea una compra, o aumentar la cantidad de días de alquiler, en caso sea una renta. Se puede utilizar los botones +/- para variar el valor, pero también puede digitar dentro de la casilla la cantidad. Tener en cuenta que a la hora de digitar un valor el cliente no podrá comprar una cantidad mayor al stock disponible y tampoco podrá alquilar por más de 30 días._
+* _Precio: Valor unitario de compra o valor de alquiler por un día._
+* _Subtotal: Valor de la multiplicación del precio unitario por la cantidad a comprar o el número de días de alquiler._
+
+_Una vez conforme el cliente con las películas que desea comprar y alquilar, la cantidad y el tiempo, podrá realizar su pedido de compra presionando sobre el botón 'Realizar pedido'. En esta nueva ruta se muestra se muestra un card con la información personal del cliente y la lista de películas agregadas que apartir de aquí será la orden del cliente y con el total a pagar. Además de dos botones: Seguir comprando y Pagar. En esta instancia el cliente tiene la oportunidad de hacer cambios en su compra regresando al Cart._
+
+_Si el cliente presiona sobre Pagar, al cabo de unos segundos se mostrará un popup que verificará el éxito de su compra. Luego, podrá ir a su perfil y ver sus pedidos. Aquí aparecerá todos los pedidos que haya realizado._
+
+_Finalmente para salir de la aplicación el cliente podrá deslogearse desde su perfil, o en todo caso la sesión se cerrará automatícamente al cabo de 5 minutos. Esto debido a que cada cuenta registrada se le otorgará un Token que expira en este tiempo._
 
 **Como administrador**
-_Se necesita un email y password de administrador._
+
+_**Se necesita un email y password de administrador**._
+
 _Una vez logeado el administrador podrá ver una tabla con las películas pre-agregadas. Aquí podrá crear otras nuevas, modificar las ya existentes o eliminarlas._
 
-_En la pestaña pedidos, verá otra tabla con el nombre y correo del cliente que ha realizado el pedido y un boton para desplegar otra tabla con la información del pedido u orden que los clientes han realizado._
+_En la pestaña pedidos, verá otra tabla con el nombre y correo del cliente que ha realizado el pedido y un boton Pedido, que le llevará a otra ruta donde se muestra un card con mayor información del cliente y una tabla con toda la información del pedido: descripción, cantidad/días, precio, subtotal y Total._
+
+_De la misma manera que el cliente, el administrador podrá deslogearse presionando sobre cerrar sesión que se encuentra en la barra de navegación o por otro lado se cerrará su sesión automáticamente en 5 minutos._
 
 ## Construido con 🛠️
 

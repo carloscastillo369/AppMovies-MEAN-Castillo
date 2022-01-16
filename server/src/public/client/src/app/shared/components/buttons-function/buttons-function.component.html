@@ -7,7 +7,7 @@
         ${{movie.purchaseprice}} Compra 
     </button>
     <button mat-raised-button color="accent" *ngIf="movie.rentalstock != 0" (click)="rentMovie(movie._id)">
-        ${{movie.rentalprice}} Renta 48Hs
+        ${{movie.rentalprice}} Renta
     </button>
     <button mat-raised-button routerLink="/public/movies">
         <mat-icon>add_shopping_cart</mat-icon> Seguir comprando

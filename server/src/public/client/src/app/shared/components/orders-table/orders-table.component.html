@@ -16,8 +16,8 @@
     </ng-container>
 
     <ng-container matColumnDef="cantidad">
-      <th mat-header-cell *matHeaderCellDef> Cantidad </th>
-      <td class="cell-center" mat-cell *matCellDef="let order"> {{order.quantity}} </td>
+      <th mat-header-cell *matHeaderCellDef> Cantidad / Días </th>
+      <td class="cell-center-normal" mat-cell *matCellDef="let order"> {{order.quantity}} {{order.type == 'renta'? 'días' : ''}} </td>
     </ng-container>
   
     <ng-container matColumnDef="precio">

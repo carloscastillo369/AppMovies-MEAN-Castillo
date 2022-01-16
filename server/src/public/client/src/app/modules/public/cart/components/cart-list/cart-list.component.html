@@ -1,7 +1,7 @@
 <div class="cart-list-container">
     <div fxLayout="row wrap" fxLayoutAlign="start center" class="cart-text">
         <mat-icon>shopping_cart</mat-icon>
-        <span>Mi Carrito de compras ( {{cartMovies.length}} película{{cartMovies.length > 1? 's' : null}} )</span>
+        <span>Mi Carrito de compras ( {{totalItemsCart}} película{{totalItemsCart > 1? 's' : null}} )</span>
     </div>  
     <div fxLayout="row wrap" fxLayoutAlign="space-between">
         <app-cart-table fxFlex="100" fxFlex.gt-sm="69"></app-cart-table>

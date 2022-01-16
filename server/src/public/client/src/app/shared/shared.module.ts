@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MaterialModule } from './material/material.module';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule } from '@angular/forms';
 
 import { ButtonsFunctionComponent } from './components/buttons-function/buttons-function.component';
 import { CardMovieComponent } from './components/card-movie/card-movie.component';
@@ -37,7 +38,8 @@ import { SidenavListComponent } from './components/sidenav-list/sidenav-list.com
     CommonModule,
     MaterialModule,
     RouterModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    FormsModule
   ],
   exports: [
     ButtonsFunctionComponent,

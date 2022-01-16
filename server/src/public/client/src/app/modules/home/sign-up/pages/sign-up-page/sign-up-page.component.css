@@ -24,6 +24,10 @@ mat-form-field {
     height: 90px;
 }
 
+mat-icon {
+    margin-right: 8px;
+}
+
 input, label, mat-label, mat-icon {
     color: #fff;
 }

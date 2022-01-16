@@ -6,7 +6,7 @@ import { DataUserModel } from 'src/app/core/models/datauser.model';
 import { OrderModel } from 'src/app/core/models/order.model';
 
 import { AuthService } from 'src/app/services/auth.service';
-import { CartService } from 'src/app/modules/public/cart/services/cart.service';
+import { CartService } from 'src/app/services/cart.service';
 import { OrderService } from 'src/app/services/order.service';
 import { ApiMoviesService } from 'src/app/services/api-movies.service';
 
@@ -71,7 +71,7 @@ export class CheckoutPageComponent implements OnInit {
     this._orderService.saveOrder(this.user, this.orders)
     .subscribe(res => {
       this.orders.forEach(elem => {
-        this.reduceStock(elem.quantity, elem.id, elem.type);
+        this.reduceStock(elem.id, elem.quantity, elem.type);
       })
     })
     setTimeout(() => {
@@ -87,11 +87,11 @@ export class CheckoutPageComponent implements OnInit {
     }, 3000)
   }
 
-  reduceStock(cantidad:any, id:string, tipo:string) {
-    if(tipo == 'compra'){
+  reduceStock(id:string, quantity:any, type:string) {
+    if(type == 'compra'){
       this._apiMoviesService.getMovie(id).subscribe((res:any) => {
         let actualStock = res[0].purchasestock;
-        let newStock = actualStock - cantidad;
+        let newStock = actualStock - quantity;
         this._apiMoviesService.updateMovie({purchasestock: newStock}, id).subscribe(res => {
           this.snackBar.openFromComponent( SnackBarComponent, {
             data: 'Procesando tu compra...',

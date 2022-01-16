@@ -3,7 +3,7 @@ import { MatTable } from '@angular/material/table';
 
 import { CartMovieModel } from 'src/app/core/models/cartmovie.model';
 
-import { CartService } from 'src/app/modules/public/cart/services/cart.service';
+import { CartService } from 'src/app/services/cart.service';
 
 
 @Component({
@@ -21,8 +21,11 @@ export class CartTableComponent implements OnInit {
   constructor(private _cartService: CartService) { }
 
   ngOnInit(): void {
-    this._cartService.getCartMoviesList()
-    .subscribe((res: CartMovieModel[]) => {
+    this.getCartList();
+  }
+
+  getCartList() {
+    this._cartService.getCartMoviesList().subscribe((res: CartMovieModel[]) => {
       this.cartMovies = res;
     })
   }
@@ -44,6 +47,10 @@ export class CartTableComponent implements OnInit {
     this._cartService.decreaseQtyMovie(id);
   }
 
+  changeQty(change: any, id: string) {
+    this._cartService.changeQtyMovie(id, Number(change));
+  }
+
   MinToHours(number: number){
     const hours = Math.floor(number/60);
     const min = number % 60;
@@ -52,7 +59,6 @@ export class CartTableComponent implements OnInit {
     } else {
       return hours + ' ' + 'hr' + ' ' + min + ' ' + 'min';
     }
-
   }
 
 }

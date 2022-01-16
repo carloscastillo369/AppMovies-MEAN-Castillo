@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { CartService } from 'src/app/modules/public/cart/services/cart.service';
+import { CartService } from 'src/app/services/cart.service';
 
 
 @Component({
@@ -15,8 +15,11 @@ export class CartPageComponent implements OnInit {
   constructor(private _cartService: CartService) { }
 
   ngOnInit(): void {
-    this._cartService.getCartMoviesList()
-    .subscribe(res => {
+    this.getTotalItemsCart();
+  }
+
+  getTotalItemsCart() {
+    this._cartService.getCartMoviesList().subscribe(res => {
       this.totalItemsCart = res.length;
     })
   }

@@ -87,17 +87,6 @@ hr {
     color: #fff;
 }
 
-.no-available {
-    color: #842029;
-    background-color: #f8d7da;
-    border: 1px solid transparent;
-    border-color: #f5c2c7;
-    border-radius: 0.25rem;
-    padding: 10px;
-    font-size: 24px;
-    font-weight: 500;
-}
-
 .extra-detail {
     width: 100%;
     margin-bottom: 20px;

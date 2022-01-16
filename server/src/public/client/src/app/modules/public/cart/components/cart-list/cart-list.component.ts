@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { CartMovieModel } from 'src/app/core/models/cartmovie.model';
-
-import { CartService } from 'src/app/modules/public/cart/services/cart.service';
+import { CartService } from 'src/app/services/cart.service';
 
 
 @Component({
@@ -12,14 +10,17 @@ import { CartService } from 'src/app/modules/public/cart/services/cart.service';
 })
 export class CartListComponent implements OnInit {
 
-  public cartMovies: CartMovieModel[] = [];
+  public totalItemsCart: number = 0;
 
   constructor(private _cartService: CartService) { }
 
   ngOnInit(): void {
-    this._cartService.getCartMoviesList()
-    .subscribe((res: CartMovieModel[]) => {
-      this.cartMovies = res;
+    this.getTotalItemsCart();
+  }
+
+  getTotalItemsCart() {
+    this._cartService.getCartMoviesList().subscribe(res => {
+      this.totalItemsCart = res.length;
     })
   }
 

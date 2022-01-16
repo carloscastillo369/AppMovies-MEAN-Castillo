@@ -6,5 +6,6 @@ export interface CartMovieModel {
     runtime: number,
     type: string,
     price: number,
-    quantity: number
+    quantity: number,
+    stock: number
 }

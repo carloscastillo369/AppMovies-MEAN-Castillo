@@ -1,7 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiMoviesService } from 'src/app/services/api-movies.service';
 import { MovieModel } from 'src/app/core/models/movie.model';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+
 import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-movies-page',
@@ -13,16 +17,21 @@ export class MoviesPageComponent implements OnInit {
   movies:MovieModel[] = [];
 
   displayedColumns: string[] = ['id','titulo', 'accion'];
+  dataSource!: MatTableDataSource<any>;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private _apiMoviesService: ApiMoviesService) { }
 
   ngOnInit(): void {
     this.getMovies();
-    
   }
 
   getMovies(){
-    this._apiMoviesService.getMovie().subscribe(res => (this.movies = res));
+    this._apiMoviesService.getMovie().subscribe(res => {
+      this.movies = res;
+      this.dataSource = new MatTableDataSource(res);
+      this.dataSource.paginator = this.paginator;
+    });
   }
 
   deleteMovie(id: string){

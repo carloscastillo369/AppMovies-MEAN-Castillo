@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CartMovieModel } from 'src/app/core/models/cartmovie.model';
-import { CartService } from 'src/app/modules/public/cart/services/cart.service';
+import { CartService } from 'src/app/services/cart.service';
 
 
 @Component({
@@ -19,8 +18,11 @@ export class CartSummaryComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this._cartService.getCartMoviesList()
-    .subscribe((res) => {
+    this.getTotalPriceCart();
+  }
+
+  getTotalPriceCart() {
+    this._cartService.getCartMoviesList().subscribe((res) => {
       this.totalPrice = this._cartService.getTotalPrice();
     })
   }

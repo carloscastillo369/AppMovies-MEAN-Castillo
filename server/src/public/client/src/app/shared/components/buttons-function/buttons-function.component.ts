@@ -3,7 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 import { MovieModel } from 'src/app/core/models/movie.model';
 
-import { CartService } from 'src/app/modules/public/cart/services/cart.service';
+import { CartService } from 'src/app/services/cart.service';
 import { ApiMoviesService } from 'src/app/services/api-movies.service';
 
 import { ModalTrailerComponent } from '../modal-trailer/modal-trailer.component';
@@ -31,13 +31,13 @@ export class ButtonsFunctionComponent implements OnInit {
 
   buyMovie(id: string){
     this._apiMoviesService.getMovie(id).subscribe(res => {
-        this._cartService.addMovieToCart(res[0], res[0].purchaseprice, 'compra');
+        this._cartService.addMovieToCart(res[0], res[0].purchaseprice, res[0].purchasestock, 'compra');
     });   
   }
 
   rentMovie(id: string){
     this._apiMoviesService.getMovie(id).subscribe(res => {
-        this._cartService.addMovieToCart(res[0], res[0].rentalprice, 'renta');
+        this._cartService.addMovieToCart(res[0], res[0].rentalprice, res[0].rentalstock, 'renta');
     });   
   }
 

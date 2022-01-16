@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
 
 import { OrderService } from 'src/app/services/order.service';
 import { DataUserModel } from 'src/app/core/models/datauser.model';
@@ -14,6 +16,8 @@ export class OrdersPageComponent implements OnInit {
   users!: DataUserModel[];
 
   displayedColumns: string[] = ['id','nombre', 'email', 'accion'];
+  dataSource!: MatTableDataSource<any>;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private _orderService: OrderService) { }
 
@@ -32,6 +36,8 @@ export class OrdersPageComponent implements OnInit {
         users.push(user)
       });
       this.users = users;
+      this.dataSource = new MatTableDataSource(users);
+      this.dataSource.paginator = this.paginator;
     })
   }
 
